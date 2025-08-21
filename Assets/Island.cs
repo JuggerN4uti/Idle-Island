@@ -94,7 +94,6 @@ public class Island : MonoBehaviour
                 else elementBuyButton[i].interactable = false;
             }
         }
-        CheckElements();
     }
 
     public void BuyElement(int elementID)
@@ -132,6 +131,8 @@ public class Island : MonoBehaviour
                 elementCostIncrease[2] += (elementCostIncrease[0] / 107) * 10;
                 break;
         }
+
+        CheckElements();
     }
 
     void UnlockElement(int elementID)
