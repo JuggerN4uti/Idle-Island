@@ -27,24 +27,26 @@ public class Milestones : MonoBehaviour
         if (milestoneProgress[ID] >= milestoneGoal[ID])
             milestoneComplete[ID] = true;
 
-        //if (PlayerScript.windowOpened[6])
-            //DisplayMilestone(ID);
+        if (IslandScript.windowOpened[0])
+            DisplayMilestone(ID);
     }
 
     public void CompleteMilestone(int ID)
     {
         milestonesReached[ID]++;
-        BonusFromMilestone[ID].text = "+" + (milestonesReached[ID] * 5).ToString("0") + "%";
+        //BonusFromMilestone[ID].text = "+" + (milestonesReached[ID] * 5).ToString("0") + "%";
 
         switch (ID)
         {
             case 0:
-                //PlayerScript.goldIncrease += 0.05f;
+                IslandScript.bonusGold += 5;
                 milestoneGoal[0] = dirtToPlace[milestonesReached[0]];
+                BonusFromMilestone[ID].text = "+" + (milestonesReached[ID] * 5).ToString("0") + "\nGold per Click";
                 break;
             case 1:
-                //PlayerScript.damageIncrease += 0.05f;
+                IslandScript.goldIncrease += 0.05f;
                 milestoneGoal[1] = goldToCollect[milestonesReached[1]];
+                BonusFromMilestone[ID].text = "+" + (milestonesReached[ID] * 5).ToString("0") + "%\nGold";
                 break;
         }
 
