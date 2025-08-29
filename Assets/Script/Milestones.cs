@@ -84,7 +84,7 @@ public class Milestones : MonoBehaviour
     string SetMilestoneGoalText(int amount)
     {
         int tempi = 0;
-        while (amount >= 1000)
+        while (amount >= 10000)
         {
             amount /= 1000;
             tempi++;
