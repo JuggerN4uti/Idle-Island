@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &3563376771540160112
+--- !u!1001 &5613170154829704396
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -54,24 +54,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8750376199057584154, guid: 43993d4176c325144ba68c10e737e234, type: 3}
       propertyPath: m_Name
-      value: Forest Block
+      value: Farmland Block
       objectReference: {fileID: 0}
     - target: {fileID: 8811231636115520463, guid: 43993d4176c325144ba68c10e737e234, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 589967d66e2cf20438d9a405dead5355, type: 3}
-    - target: {fileID: 8811231636115520463, guid: 43993d4176c325144ba68c10e737e234, type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8811231636115520463, guid: 43993d4176c325144ba68c10e737e234, type: 3}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8811231636115520463, guid: 43993d4176c325144ba68c10e737e234, type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 21300000, guid: 88b42a36a5d764a4faaf18735c5d3750, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

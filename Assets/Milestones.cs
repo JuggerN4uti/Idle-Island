@@ -9,8 +9,9 @@ public class Milestones : MonoBehaviour
     public Island IslandScript;
 
     [Header("Milestones")]
-    public bool[] milestoneComplete; // 0 - total island score, 1 - gold collected
+    public bool[] milestoneComplete; // 0 - total island score, 1 - gold collected, lumber collected
     public int[] milestoneProgress, milestoneGoal, milestonesReached;
+    public string[] milestoneGoalText, suffix;
 
     [Header("UI")]
     public Image[] MilestoneBarFill;
@@ -20,6 +21,7 @@ public class Milestones : MonoBehaviour
     [Header("Milestones Goals")]
     public int[] dirtToPlace;
     public int[] goldToCollect;
+    public int[] lumberToCollect;
 
     public void ProgressMilestone(int ID, int amount)
     {
@@ -41,12 +43,20 @@ public class Milestones : MonoBehaviour
             case 0:
                 IslandScript.bonusGold += 5;
                 milestoneGoal[0] = dirtToPlace[milestonesReached[0]];
+                milestoneGoalText[0] = SetMilestoneGoalText(milestoneGoal[0]);
                 BonusFromMilestone[ID].text = "+" + (milestonesReached[ID] * 5).ToString("0") + "\nGold per Click";
                 break;
             case 1:
                 IslandScript.goldIncrease += 0.05f;
                 milestoneGoal[1] = goldToCollect[milestonesReached[1]];
+                milestoneGoalText[1] = SetMilestoneGoalText(milestoneGoal[1]);
                 BonusFromMilestone[ID].text = "+" + (milestonesReached[ID] * 5).ToString("0") + "%\nGold";
+                break;
+            case 2:
+                IslandScript.lumberIncrease += 0.05f;
+                milestoneGoal[2] = lumberToCollect[milestonesReached[2]];
+                milestoneGoalText[2] = SetMilestoneGoalText(milestoneGoal[2]);
+                BonusFromMilestone[ID].text = "+" + (milestonesReached[ID] * 5).ToString("0") + "%\nLumber";
                 break;
         }
 
@@ -66,8 +76,19 @@ public class Milestones : MonoBehaviour
     void DisplayMilestone(int ID)
     {
         MilestoneBarFill[ID].fillAmount = (milestoneProgress[ID] * 1f) / (milestoneGoal[ID] * 1f);
-        MilestoneProgressText[ID].text = milestoneProgress[ID].ToString("0") + "/" + milestoneGoal[ID].ToString("0");
+        MilestoneProgressText[ID].text = milestoneProgress[ID].ToString("0") + "/" + milestoneGoalText[ID];
         if (milestoneComplete[ID])
             MilestoneBarButton[ID].interactable = true;
+    }
+
+    string SetMilestoneGoalText(int amount)
+    {
+        int tempi = 0;
+        while (amount >= 1000)
+        {
+            amount /= 1000;
+            tempi++;
+        }
+        return amount.ToString("0") + suffix[tempi];
     }
 }

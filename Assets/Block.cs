@@ -47,6 +47,7 @@ public class Block : MonoBehaviour
     {
         BuildingSprite.enabled = true;
         IslandScript.PlaceElement(blockID, 0, false);
+        BuildingViable = false;
         switch (IslandScript.placing)
         {
             case 2:

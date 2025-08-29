@@ -19,14 +19,16 @@ public class Island : MonoBehaviour
     [Header("Resources")]
     public int gold;
     public int lumber, dirtBlocks, trees, tents, bonusGold;
-    public float goldIncrease;
+    public float goldIncrease, lumberIncrease;
 
     [Header("Island Elements")]
     public int freeSpaces;
+    public ElementCost[] ElementCostScript;
     public bool[] costsLumber;
     public int[] elementCost, elementCostIncrease;
     public Button[] elementBuyButton;
     public TMPro.TextMeshProUGUI[] elementCostText;
+    //public char[] suffix;
 
     [Header("UI")]
     public TMPro.TextMeshProUGUI GoldText;
@@ -52,6 +54,10 @@ public class Island : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
             Click(1);
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+            SelectScreen(0);
+        if (Input.GetKeyDown(KeyCode.Tab))
+            SelectScreen(1);
     }
 
     void AutoClick()
@@ -85,8 +91,10 @@ public class Island : MonoBehaviour
 
     void GainLumber(int amount)
     {
+        amount = Mathf.RoundToInt(amount * lumberIncrease);
         lumber += amount;
         LumberText.text = lumber.ToString("0");
+        MilestonesScript.ProgressMilestone(2, amount);
     }
 
     void SpendLumber(int amount)
@@ -121,27 +129,35 @@ public class Island : MonoBehaviour
             if (costsLumber[elementID])
                 SpendLumber(elementCost[elementID]);
             else SpendGold(elementCost[elementID]);
-            elementCost[elementID] += elementCostIncrease[elementID];
-            elementCostText[elementID].text = elementCost[elementID].ToString("0");
+            ElementCostScript[elementID].bought++;
+            elementCost[elementID] = ElementCostScript[elementID].cost[ElementCostScript[elementID].bought];
+
+            if (ElementCostScript[elementID].displayLevel[ElementCostScript[elementID].bought] == 0)
+                elementCostText[elementID].text = elementCost[elementID].ToString("0");
+            else if (ElementCostScript[elementID].displayLevel[ElementCostScript[elementID].bought] == 1)
+                elementCostText[elementID].text = (elementCost[elementID] / 1000f).ToString("0.0") + "k";
+            else
+            {
+                elementCostText[elementID].text = (elementCost[elementID] / 1000000f).ToString("0.0") + "m";
+                //elementCostText[elementID].text = (elementCost[elementID] / 1000f).ToString("0.0") + suffix[];
+                // potem lepsze
+            }
 
             switch (elementID)
             {
                 case 0:
                     //DirtBlocksObject[dirtBlocks].SetActive(true);
-                    elementCostIncrease[0] += 5;
-                    elementCostIncrease[0] += (elementCostIncrease[0] / 50) * 5;
                     Build(0, true);
                     break;
                 case 1:
                     //TreeObject[elementsPlaced].SetActive(true);
-                    elementCostIncrease[1] += 10;
-                    elementCostIncrease[1] += (elementCostIncrease[0] / 83) * 10;
                     Build(1, true);
                     break;
                 case 2:
-                    elementCostIncrease[2] += 20;
-                    elementCostIncrease[2] += (elementCostIncrease[0] / 143) * 20;
                     Build(2, false);
+                    break;
+                case 3:
+                    Build(3, true);
                     break;
             }
 
@@ -202,22 +218,29 @@ public class Island : MonoBehaviour
         switch (placing)
         {
             case 0:
-                dirtBlocks++;
                 freeSpaces++;
-                MilestonesScript.ProgressMilestone(0, 1);
-                if (dirtBlocks == 9)
-                    UnlockElement(0);
                 break;
             case 1:
-                dirtBlocks++;
-                MilestonesScript.ProgressMilestone(0, 1);
                 trees++;
-                if (trees == 1)
+                if (trees == 3)
                     UnlockElement(1);
                 break;
             case 2:
                 tents++;
                 break;
+            case 3:
+                goldIncrease += 0.05f;
+                lumberIncrease += 0.05f;
+                break;
+        }
+        if (block)
+        {
+            dirtBlocks++;
+            MilestonesScript.ProgressMilestone(0, 1);
+            if (dirtBlocks == 9)
+                UnlockElement(0);
+            if (dirtBlocks == 24)
+                UnlockElement(2);
         }
 
         CheckElements();
