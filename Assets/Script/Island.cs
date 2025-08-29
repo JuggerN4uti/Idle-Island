@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Island : MonoBehaviour
 {
     [Header("Scripts")]
+    public Construction ConstructionScript;
     public Milestones MilestonesScript;
 
     [Header("Blocks")]
@@ -17,9 +18,10 @@ public class Island : MonoBehaviour
     public GameObject[] BlockPrefab;
 
     [Header("Resources")]
-    public int gold;
-    public int lumber, dirtBlocks, trees, tents, bonusGold;
+    public int workers;
+    public int gold, lumber, dirtBlocks, trees, tents, bonusGold;
     public float goldIncrease, lumberIncrease;
+    int workHours;
 
     [Header("Island Elements")]
     public int freeSpaces;
@@ -56,23 +58,27 @@ public class Island : MonoBehaviour
             Click(1);
         if (Input.GetKeyDown(KeyCode.Alpha1))
             SelectScreen(0);
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (Input.GetKeyDown(KeyCode.Alpha2))
             SelectScreen(1);
+        if (Input.GetKeyDown(KeyCode.Tab))
+            SelectScreen(2);
     }
 
     void AutoClick()
     {
-        if (tents > 0)
-            Click(tents);
-        Invoke("AutoClick", 1f);
+        workHours += workers;
+        if (workHours > 10)
+        {
+            Click(workHours / 10);
+            workHours = workHours % 10;
+        }
+        Invoke("AutoClick", 0.5f);
     }
 
     void Click(int clicks)
     {
         GainGold((dirtBlocks + bonusGold) * clicks);
         GainLumber(trees * clicks);
-
-        CheckElements();
     }
 
     void GainGold(int amount)
@@ -81,6 +87,8 @@ public class Island : MonoBehaviour
         gold += amount;
         GoldText.text = gold.ToString("0");
         MilestonesScript.ProgressMilestone(1, amount);
+
+        CheckElements();
     }
 
     void SpendGold(int amount)
@@ -95,9 +103,12 @@ public class Island : MonoBehaviour
         lumber += amount;
         LumberText.text = lumber.ToString("0");
         MilestonesScript.ProgressMilestone(2, amount);
+
+        if (windowOpened[1])
+            ConstructionScript.CheckUpgrades();
     }
 
-    void SpendLumber(int amount)
+    public void SpendLumber(int amount)
     {
         lumber -= amount;
         LumberText.text = lumber.ToString("0");
@@ -135,10 +146,10 @@ public class Island : MonoBehaviour
             if (ElementCostScript[elementID].displayLevel[ElementCostScript[elementID].bought] == 0)
                 elementCostText[elementID].text = elementCost[elementID].ToString("0");
             else if (ElementCostScript[elementID].displayLevel[ElementCostScript[elementID].bought] == 1)
-                elementCostText[elementID].text = (elementCost[elementID] / 1000f).ToString("0.0") + "k";
+                elementCostText[elementID].text = (elementCost[elementID] / 1000f).ToString() + "k";
             else
             {
-                elementCostText[elementID].text = (elementCost[elementID] / 1000000f).ToString("0.0") + "m";
+                elementCostText[elementID].text = (elementCost[elementID] / 1000000f).ToString() + "m";
                 //elementCostText[elementID].text = (elementCost[elementID] / 1000f).ToString("0.0") + suffix[];
                 // potem lepsze
             }
@@ -222,11 +233,10 @@ public class Island : MonoBehaviour
                 break;
             case 1:
                 trees++;
-                if (trees == 3)
-                    UnlockElement(1);
                 break;
             case 2:
                 tents++;
+                workers += (2 + ConstructionScript.upgradesBought[1]);
                 break;
             case 3:
                 goldIncrease += 0.05f;
@@ -239,7 +249,9 @@ public class Island : MonoBehaviour
             MilestonesScript.ProgressMilestone(0, 1);
             if (dirtBlocks == 9)
                 UnlockElement(0);
-            if (dirtBlocks == 24)
+            if (dirtBlocks == 16)
+                UnlockElement(1);
+            if (dirtBlocks == 25)
                 UnlockElement(2);
         }
 
@@ -273,6 +285,11 @@ public class Island : MonoBehaviour
             {
                 case 0: // milestones
                     MilestonesScript.DisplayWindow();
+                    break;
+                case 1: // construction
+                    ConstructionScript.CheckUpgrades();
+                    break;
+                case 2: // stats
                     break;
             }
         }

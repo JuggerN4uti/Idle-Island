@@ -76,7 +76,7 @@ public class Milestones : MonoBehaviour
     void DisplayMilestone(int ID)
     {
         MilestoneBarFill[ID].fillAmount = (milestoneProgress[ID] * 1f) / (milestoneGoal[ID] * 1f);
-        MilestoneProgressText[ID].text = milestoneProgress[ID].ToString("0") + "/" + milestoneGoalText[ID];
+        MilestoneProgressText[ID].text = milestoneProgress[ID].ToString() + "/" + milestoneGoalText[ID];
         if (milestoneComplete[ID])
             MilestoneBarButton[ID].interactable = true;
     }
@@ -89,6 +89,6 @@ public class Milestones : MonoBehaviour
             amount /= 1000;
             tempi++;
         }
-        return amount.ToString("0") + suffix[tempi];
+        return amount.ToString() + suffix[tempi];
     }
 }
