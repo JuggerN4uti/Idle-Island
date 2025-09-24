@@ -16,11 +16,12 @@ public class Construction : MonoBehaviour
     [Header("UI")]
     public Button[] UpgradeButton;
     public TMPro.TextMeshProUGUI[] UpgradeCostText;
-    public TMPro.TextMeshProUGUI TownHallGold, TownHallWorkers, HouseWorkers;
+    public TMPro.TextMeshProUGUI TownHallGold, TownHallWorkers, HouseWorkers, BarnGold, BarnLumber;
 
     [Header("Construction Costs")]
     public int[] TownHallCosts;
     public int[] HouseCosts;
+    public int[] BarnCosts;
 
     public void CheckUpgrades()
     {
@@ -41,15 +42,22 @@ public class Construction : MonoBehaviour
         {
             case 0:
                 IslandScript.bonusGold += 4;
-                IslandScript.workers += 2;
+                IslandScript.workers += 3;
                 upgradeCost[which] = TownHallCosts[upgradesBought[which]];
                 TownHallGold.text = (4 * upgradesBought[which]).ToString("0");
-                TownHallWorkers.text = (3 + 2 * upgradesBought[which]).ToString("0");
+                TownHallWorkers.text = (4 + 3 * upgradesBought[which]).ToString("0");
                 break;
             case 1:
                 IslandScript.workers += IslandScript.tents;
                 upgradeCost[which] = HouseCosts[upgradesBought[which]];
-                HouseWorkers.text = (1 + upgradesBought[which]).ToString("0");
+                HouseWorkers.text = (2 + upgradesBought[which]).ToString("0");
+                break;
+            case 2:
+                IslandScript.goldIncrease += 0.02f * IslandScript.barns;
+                IslandScript.lumberIncrease += 0.01f * IslandScript.barns;
+                upgradeCost[which] = BarnCosts[upgradesBought[which]];
+                BarnGold.text = (4 + 2 * upgradesBought[which]).ToString("0") + "%";
+                BarnLumber.text = (3 + upgradesBought[which]).ToString("0") + "%";
                 break;
         }
 

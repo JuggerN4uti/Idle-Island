@@ -1407,3 +1407,5 @@ MonoBehaviour:
   - {x: -1, y: -0.5, z: -0.1}
   - {x: -1, y: 0.5, z: 0.1}
   BuildingSprite: {fileID: 6256370351496643626}
+  TentSprite: {fileID: 21300000, guid: 2b06f26da02b8194190b9c83956c19d5, type: 3}
+  BarnSprite: {fileID: 21300000, guid: 544b764ca2ebc444181974bec1ab6e35, type: 3}

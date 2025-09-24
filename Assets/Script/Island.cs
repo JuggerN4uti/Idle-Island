@@ -8,6 +8,7 @@ public class Island : MonoBehaviour
     [Header("Scripts")]
     public Construction ConstructionScript;
     public Milestones MilestonesScript;
+    public Statistics StatisticsScript;
 
     [Header("Blocks")]
     public int blocks;
@@ -19,15 +20,16 @@ public class Island : MonoBehaviour
 
     [Header("Resources")]
     public int workers;
-    public int gold, lumber, dirtBlocks, trees, tents, bonusGold;
+    public int gold, lumber, bonusGold;
+    public int dirtBlocks, trees, tents, farmlands, barns, glades;
     public float goldIncrease, lumberIncrease;
     int workHours;
 
     [Header("Island Elements")]
     public int freeSpaces;
     public ElementCost[] ElementCostScript;
-    public bool[] costsLumber;
-    public int[] elementCost, elementCostIncrease;
+    public bool[] elementMaxxed;
+    public int[] elementCost;
     public Button[] elementBuyButton;
     public TMPro.TextMeshProUGUI[] elementCostText;
     //public char[] suffix;
@@ -72,13 +74,18 @@ public class Island : MonoBehaviour
             Click(workHours / 10);
             workHours = workHours % 10;
         }
-        Invoke("AutoClick", 0.5f);
+        Invoke("AutoClick", 0.75f);
     }
 
     void Click(int clicks)
     {
-        GainGold((dirtBlocks + bonusGold) * clicks);
+        GainGold(GoldPerClick() * clicks);
         GainLumber(trees * clicks);
+    }
+
+    public int GoldPerClick()
+    {
+        return dirtBlocks + bonusGold + (dirtBlocks * glades / 40);
     }
 
     void GainGold(int amount)
@@ -118,13 +125,7 @@ public class Island : MonoBehaviour
     {
         for (int i = 0; i < elementCost.Length; i++)
         {
-            if (costsLumber[i])
-            {
-                if (lumber >= elementCost[i])
-                    elementBuyButton[i].interactable = true;
-                else elementBuyButton[i].interactable = false;
-            }
-            else
+            if (!elementMaxxed[i])
             {
                 if (gold >= elementCost[i])
                     elementBuyButton[i].interactable = true;
@@ -137,21 +138,28 @@ public class Island : MonoBehaviour
     {
         if (elementID == 0 || freeSpaces > 0)
         {
-            if (costsLumber[elementID])
-                SpendLumber(elementCost[elementID]);
-            else SpendGold(elementCost[elementID]);
+            SpendGold(elementCost[elementID]);
             ElementCostScript[elementID].bought++;
-            elementCost[elementID] = ElementCostScript[elementID].cost[ElementCostScript[elementID].bought];
-
-            if (ElementCostScript[elementID].displayLevel[ElementCostScript[elementID].bought] == 0)
-                elementCostText[elementID].text = elementCost[elementID].ToString("0");
-            else if (ElementCostScript[elementID].displayLevel[ElementCostScript[elementID].bought] == 1)
-                elementCostText[elementID].text = (elementCost[elementID] / 1000f).ToString() + "k";
+            if (ElementCostScript[elementID].bought >= ElementCostScript[elementID].cost.Length)
+            {
+                elementMaxxed[elementID] = true;
+                elementCostText[elementID].text = "";
+                elementBuyButton[elementID].interactable = false;
+            }
             else
             {
-                elementCostText[elementID].text = (elementCost[elementID] / 1000000f).ToString() + "m";
-                //elementCostText[elementID].text = (elementCost[elementID] / 1000f).ToString("0.0") + suffix[];
-                // potem lepsze
+                elementCost[elementID] = ElementCostScript[elementID].cost[ElementCostScript[elementID].bought];
+
+                if (ElementCostScript[elementID].displayLevel[ElementCostScript[elementID].bought] == 0)
+                    elementCostText[elementID].text = elementCost[elementID].ToString("0");
+                else if (ElementCostScript[elementID].displayLevel[ElementCostScript[elementID].bought] == 1)
+                    elementCostText[elementID].text = (elementCost[elementID] / 1000f).ToString() + "k";
+                else
+                {
+                    elementCostText[elementID].text = (elementCost[elementID] / 1000000f).ToString() + "m";
+                    //elementCostText[elementID].text = (elementCost[elementID] / 1000f).ToString("0.0") + suffix[];
+                    // potem lepsze
+                }
             }
 
             switch (elementID)
@@ -169,6 +177,12 @@ public class Island : MonoBehaviour
                     break;
                 case 3:
                     Build(3, true);
+                    break;
+                case 4:
+                    Build(4, false);
+                    break;
+                case 5:
+                    Build(5, true);
                     break;
             }
 
@@ -239,23 +253,44 @@ public class Island : MonoBehaviour
                 workers += (2 + ConstructionScript.upgradesBought[1]);
                 break;
             case 3:
-                goldIncrease += 0.05f;
-                lumberIncrease += 0.05f;
+                farmlands++;
+                GainBlock();
+                break;
+            case 4:
+                barns++;
+                //bonusGold += (4 + 3 * ConstructionScript.upgradesBought[2]);
+                //goldIncrease += (0.002f + 0.001f * ConstructionScript.upgradesBought[2]) * dirtBlocks;
+                goldIncrease += (0.04f + 0.02f * ConstructionScript.upgradesBought[2]);
+                lumberIncrease += (0.03f + 0.01f * ConstructionScript.upgradesBought[2]);
+                break;
+            case 5:
+                glades++;
+                freeSpaces++;
+                //GainBlock();
                 break;
         }
         if (block)
-        {
-            dirtBlocks++;
-            MilestonesScript.ProgressMilestone(0, 1);
-            if (dirtBlocks == 9)
-                UnlockElement(0);
-            if (dirtBlocks == 16)
-                UnlockElement(1);
-            if (dirtBlocks == 25)
-                UnlockElement(2);
-        }
+            GainBlock();
 
         CheckElements();
+    }
+
+    void GainBlock()
+    {
+        dirtBlocks++;
+        //if (barns > 0)
+            //goldIncrease += (0.002f + 0.001f * ConstructionScript.upgradesBought[2]) * barns;
+        MilestonesScript.ProgressMilestone(0, 1);
+        if (dirtBlocks == 9)
+            UnlockElement(0);
+        if (dirtBlocks == 16)
+            UnlockElement(1);
+        if (dirtBlocks == 25)
+            UnlockElement(2);
+        if (dirtBlocks == 36)
+            UnlockElement(3);
+        if (dirtBlocks == 49)
+            UnlockElement(4);
     }
 
     void UnlockElement(int elementID)
@@ -290,6 +325,7 @@ public class Island : MonoBehaviour
                     ConstructionScript.CheckUpgrades();
                     break;
                 case 2: // stats
+                    StatisticsScript.DisplayStats();
                     break;
             }
         }
