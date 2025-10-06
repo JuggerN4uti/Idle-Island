@@ -21,7 +21,7 @@ public class Island : MonoBehaviour
     [Header("Resources")]
     public int workers;
     public int gold, lumber, bonusGold;
-    public int dirtBlocks, trees, tents, farmlands, barns, glades;
+    public int dirtBlocks, tents, trees, barns, farmlands, sawmills, glades;
     public float goldIncrease, lumberIncrease;
     int workHours;
 
@@ -69,18 +69,18 @@ public class Island : MonoBehaviour
     void AutoClick()
     {
         workHours += workers;
-        if (workHours > 10)
+        if (workHours > 15)
         {
-            Click(workHours / 10);
-            workHours = workHours % 10;
+            Click(workHours / 15);
+            workHours = workHours % 15;
         }
-        Invoke("AutoClick", 0.75f);
+        Invoke("AutoClick", 0.8f);
     }
 
     void Click(int clicks)
     {
         GainGold(GoldPerClick() * clicks);
-        GainLumber(trees * clicks);
+        GainLumber(LumberPerClick() * clicks);
     }
 
     public int GoldPerClick()
@@ -104,6 +104,11 @@ public class Island : MonoBehaviour
         GoldText.text = gold.ToString("0");
     }
 
+    public int LumberPerClick()
+    {
+        return trees + sawmills;
+    }
+
     void GainLumber(int amount)
     {
         amount = Mathf.RoundToInt(amount * lumberIncrease);
@@ -113,6 +118,9 @@ public class Island : MonoBehaviour
 
         if (windowOpened[1])
             ConstructionScript.CheckUpgrades();
+
+        if (sawmills > 0)
+            GainGold(amount * sawmills / 10);
     }
 
     public void SpendLumber(int amount)
@@ -164,25 +172,28 @@ public class Island : MonoBehaviour
 
             switch (elementID)
             {
-                case 0:
+                case 0: // grass block
                     //DirtBlocksObject[dirtBlocks].SetActive(true);
                     Build(0, true);
                     break;
-                case 1:
+                case 1: // house
                     //TreeObject[elementsPlaced].SetActive(true);
-                    Build(1, true);
+                    Build(1, false);
                     break;
-                case 2:
-                    Build(2, false);
+                case 2: // forest block
+                    Build(2, true);
                     break;
-                case 3:
-                    Build(3, true);
+                case 3: // barn
+                    Build(3, false);
                     break;
-                case 4:
-                    Build(4, false);
+                case 4: // farmland block
+                    Build(4, true);
                     break;
-                case 5:
-                    Build(5, true);
+                case 5: // sawmill
+                    Build(5, false);
+                    break;
+                case 6: // glade block
+                    Build(6, true);
                     break;
             }
 
@@ -246,24 +257,28 @@ public class Island : MonoBehaviour
                 freeSpaces++;
                 break;
             case 1:
-                trees++;
-                break;
-            case 2:
                 tents++;
                 workers += (2 + ConstructionScript.upgradesBought[1]);
                 break;
-            case 3:
-                farmlands++;
-                GainBlock();
+            case 2:
+                trees++;
                 break;
-            case 4:
+            case 3:
                 barns++;
                 //bonusGold += (4 + 3 * ConstructionScript.upgradesBought[2]);
                 //goldIncrease += (0.002f + 0.001f * ConstructionScript.upgradesBought[2]) * dirtBlocks;
                 goldIncrease += (0.04f + 0.02f * ConstructionScript.upgradesBought[2]);
                 lumberIncrease += (0.03f + 0.01f * ConstructionScript.upgradesBought[2]);
                 break;
+            case 4:
+                farmlands++;
+                GainBlock();
+                break;
             case 5:
+                sawmills++;
+                //GainBlock();
+                break;
+            case 6:
                 glades++;
                 freeSpaces++;
                 //GainBlock();

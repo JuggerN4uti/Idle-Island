@@ -13,7 +13,7 @@ public class Block : MonoBehaviour
     public int blockID;
     public Vector3[] Positions;
     public SpriteRenderer BuildingSprite;
-    public Sprite TentSprite, BarnSprite;
+    public Sprite TentSprite, BarnSprite, SawmillSprite;
 
     public void DisplayPlacements()
     {
@@ -51,11 +51,14 @@ public class Block : MonoBehaviour
         BuildingViable = false;
         switch (IslandScript.placing)
         {
-            case 2:
+            case 1:
                 BuildingSprite.sprite = TentSprite;
                 break;
-            case 4:
+            case 3:
                 BuildingSprite.sprite = BarnSprite;
+                break;
+            case 5:
+                BuildingSprite.sprite = SawmillSprite;
                 break;
         }
     }

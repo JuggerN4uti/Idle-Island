@@ -1059,7 +1059,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 25}
-  m_SizeDelta: {x: 50, y: 50}
+  m_SizeDelta: {x: 54, y: 36}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &107674531
 MonoBehaviour:
@@ -1081,7 +1081,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 589967d66e2cf20438d9a405dead5355, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2b06f26da02b8194190b9c83956c19d5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1633,7 +1633,7 @@ GameObject:
   - component: {fileID: 156643718}
   - component: {fileID: 156643717}
   m_Layer: 0
-  m_Name: Forest Block
+  m_Name: House
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1860,7 +1860,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 25}
-  m_SizeDelta: {x: 50, y: 50}
+  m_SizeDelta: {x: 70, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &220142990
 MonoBehaviour:
@@ -1882,7 +1882,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1ec466d0ac076b245ba940a55ce5807e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 91748d506f240944dbf35499d4a77a33, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1957,7 +1957,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 88b42a36a5d764a4faaf18735c5d3750, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 544b764ca2ebc444181974bec1ab6e35, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2107,7 +2107,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 8
+  m_text: 5
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2540,7 +2540,7 @@ GameObject:
   - component: {fileID: 372514188}
   - component: {fileID: 372514191}
   m_Layer: 0
-  m_Name: Buy - Glade
+  m_Name: Buy - Sawmill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2748,7 +2748,7 @@ GameObject:
   - component: {fileID: 432418921}
   - component: {fileID: 432418920}
   m_Layer: 0
-  m_Name: Unlock - House
+  m_Name: Unlock - Forest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5199,7 +5199,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 25}
-  m_SizeDelta: {x: 54, y: 36}
+  m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &797445143
 MonoBehaviour:
@@ -5221,7 +5221,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2b06f26da02b8194190b9c83956c19d5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 589967d66e2cf20438d9a405dead5355, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5478,20 +5478,22 @@ MonoBehaviour:
   placing: 0
   BlockPrefab:
   - {fileID: 8750376199057584154, guid: 43993d4176c325144ba68c10e737e234, type: 3}
+  - {fileID: 0}
   - {fileID: 5196094598842924650, guid: db323cca779d58546ad6d300248c130f, type: 3}
   - {fileID: 0}
   - {fileID: 3785953124023196886, guid: 35bb49b8a11ce834ca208345b95b42b6, type: 3}
   - {fileID: 0}
   - {fileID: 7624325229161473521, guid: a4a3125853a797142b3e19ad1fec8de4, type: 3}
-  workers: 4
+  workers: 5
   gold: 0
   lumber: 0
   bonusGold: 0
   dirtBlocks: 1
-  trees: 0
   tents: 0
-  farmlands: 0
+  trees: 0
   barns: 0
+  farmlands: 0
+  sawmills: 0
   glades: 0
   goldIncrease: 1
   lumberIncrease: 1
@@ -5504,7 +5506,7 @@ MonoBehaviour:
   - {fileID: 1207443409}
   - {fileID: 860553723}
   elementMaxxed: 000000000000
-  elementCost: 0800000078000000f0000000d0020000dc050000280a0000
+  elementCost: 0500000078000000f0000000d0020000dc050000280a0000
   elementBuyButton:
   - {fileID: 667040206}
   - {fileID: 1000637698}
@@ -5762,7 +5764,7 @@ GameObject:
   - component: {fileID: 824110436}
   - component: {fileID: 824110439}
   m_Layer: 0
-  m_Name: Buy - Farmland
+  m_Name: Buy - Barn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6103,7 +6105,7 @@ GameObject:
   - component: {fileID: 860553722}
   - component: {fileID: 860553723}
   m_Layer: 0
-  m_Name: Glade
+  m_Name: Sawmill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6742,9 +6744,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lumber: 0
   bought: 0
-  percentCostIncrease: 30
-  displayLevel: 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010000000100000001000000010000000100000001000000010000000100000001000000
-  cost: 080000001200000020000000320000004b0000006e000000a0000000e600000040010000c2010000760200007a0300001405000008070000280a0000740e000018150000dc1e0000e02e0000504600007869000028a0000030f20000306f0100e0220200605b030020300500
+  percentCostIncrease: 25
+  displayLevel: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+  cost: 050000000b000000130000001d0000002a0000003b0000005200000078000000a0000000dc0000002c0100009a01000030020000020300004c040000dc05000034080000b80b0000cc10000038180000c4220000c8320000384a0000606d000028a0000048ee000060670100e02202005034030000e20400107a0700
 --- !u!1 &952007942
 GameObject:
   m_ObjectHideFlags: 0
@@ -6756,7 +6758,7 @@ GameObject:
   - component: {fileID: 952007943}
   - component: {fileID: 952007944}
   m_Layer: 0
-  m_Name: Farmland Block
+  m_Name: Barn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6882,7 +6884,7 @@ GameObject:
   - component: {fileID: 1000637699}
   - component: {fileID: 1000637698}
   m_Layer: 0
-  m_Name: Buy - Forest
+  m_Name: Buy - House
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7015,7 +7017,7 @@ GameObject:
   - component: {fileID: 1003706791}
   - component: {fileID: 1003706790}
   m_Layer: 0
-  m_Name: Unlock - Forest
+  m_Name: Unlock - House
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8372,7 +8374,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 4
+  m_text: 5
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -8460,7 +8462,7 @@ GameObject:
   - component: {fileID: 1207443410}
   - component: {fileID: 1207443409}
   m_Layer: 0
-  m_Name: Barn
+  m_Name: Farmland Block
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8912,7 +8914,7 @@ GameObject:
   - component: {fileID: 1228221739}
   - component: {fileID: 1228221738}
   m_Layer: 0
-  m_Name: Unlock - Farmland
+  m_Name: Unlock - Barn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10538,7 +10540,7 @@ GameObject:
   - component: {fileID: 1516246046}
   - component: {fileID: 1516246045}
   m_Layer: 0
-  m_Name: Tent
+  m_Name: Forest Block
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10797,7 +10799,7 @@ GameObject:
   - component: {fileID: 1528606068}
   - component: {fileID: 1528606067}
   m_Layer: 0
-  m_Name: Unlock - Glade
+  m_Name: Unlock - Sawmill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11553,7 +11555,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 544b764ca2ebc444181974bec1ab6e35, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 88b42a36a5d764a4faaf18735c5d3750, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -13414,7 +13416,7 @@ GameObject:
   - component: {fileID: 1953883877}
   - component: {fileID: 1953883876}
   m_Layer: 0
-  m_Name: Buy - Barn
+  m_Name: Buy - Farmland
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13776,7 +13778,7 @@ GameObject:
   - component: {fileID: 1977139837}
   - component: {fileID: 1977139836}
   m_Layer: 0
-  m_Name: Unlock - Barn
+  m_Name: Unlock - Farmland
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14474,7 +14476,7 @@ GameObject:
   - component: {fileID: 2143491793}
   - component: {fileID: 2143491796}
   m_Layer: 0
-  m_Name: Buy - House
+  m_Name: Buy - Forest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
