@@ -51,13 +51,13 @@ public class Island : MonoBehaviour
     {
         MilestonesScript.ProgressMilestone(0, 1);
         CheckElements();
-        Invoke("AutoClick", 1f);
+        Invoke("Tick", 1f);
     }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-            Click(1);
+        //if (Input.GetMouseButtonDown(0))
+            //Click(1);
         if (Input.GetKeyDown(KeyCode.Alpha1))
             SelectScreen(0);
         if (Input.GetKeyDown(KeyCode.Alpha2))
@@ -66,26 +66,28 @@ public class Island : MonoBehaviour
             SelectScreen(2);
     }
 
-    void AutoClick()
+    void Tick()
     {
-        workHours += workers;
+        /*workHours += workers;
         if (workHours > 15)
         {
             Click(workHours / 15);
             workHours = workHours % 15;
-        }
-        Invoke("AutoClick", 0.8f);
+        }*/
+        GainGold(GoldPerTick());
+        GainLumber(LumberPerTick());
+        Invoke("Tick", 1f);
     }
 
     void Click(int clicks)
     {
-        GainGold(GoldPerClick() * clicks);
-        GainLumber(LumberPerClick() * clicks);
+        GainGold(GoldPerTick() * clicks);
+        GainLumber(LumberPerTick() * clicks);
     }
 
-    public int GoldPerClick()
+    public int GoldPerTick()
     {
-        return dirtBlocks + bonusGold + (dirtBlocks * glades / 40);
+        return dirtBlocks + bonusGold + workers + (dirtBlocks * glades / 40);
     }
 
     void GainGold(int amount)
@@ -104,7 +106,7 @@ public class Island : MonoBehaviour
         GoldText.text = gold.ToString("0");
     }
 
-    public int LumberPerClick()
+    public int LumberPerTick()
     {
         return trees + sawmills;
     }

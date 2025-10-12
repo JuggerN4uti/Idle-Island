@@ -42,10 +42,10 @@ public class Construction : MonoBehaviour
         {
             case 0:
                 IslandScript.bonusGold += 4;
-                IslandScript.workers += 3;
+                IslandScript.workers += 4;
                 upgradeCost[which] = TownHallCosts[upgradesBought[which]];
                 TownHallGold.text = (4 * upgradesBought[which]).ToString("0");
-                TownHallWorkers.text = (5 + 3 * upgradesBought[which]).ToString("0");
+                TownHallWorkers.text = (4 * upgradesBought[which]).ToString("0");
                 break;
             case 1:
                 IslandScript.workers += IslandScript.tents;
