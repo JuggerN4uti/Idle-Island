@@ -44,7 +44,7 @@ public class Milestones : MonoBehaviour
                 IslandScript.bonusGold += 5;
                 milestoneGoal[0] = dirtToPlace[milestonesReached[0]];
                 milestoneGoalText[0] = SetMilestoneGoalText(milestoneGoal[0]);
-                BonusFromMilestone[ID].text = "+" + (milestonesReached[ID] * 5).ToString("0") + "\nGold per Click";
+                BonusFromMilestone[ID].text = "+" + (milestonesReached[ID] * 5).ToString("0") + "\nGold per Second";
                 break;
             case 1:
                 IslandScript.goldIncrease += 0.05f;

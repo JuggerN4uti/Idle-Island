@@ -16,12 +16,11 @@ public class Construction : MonoBehaviour
     [Header("UI")]
     public Button[] UpgradeButton;
     public TMPro.TextMeshProUGUI[] UpgradeCostText;
-    public TMPro.TextMeshProUGUI TownHallGold, TownHallWorkers, HouseWorkers, BarnGold, BarnLumber;
+    public TMPro.TextMeshProUGUI TownHallGold, TownHallWorkers, HouseWorkers, SawmillWorkers, SawmillLumber;
 
     [Header("Construction Costs")]
     public int[] TownHallCosts;
-    public int[] HouseCosts;
-    public int[] BarnCosts;
+    public int[] HouseCosts, SawmillCosts;
 
     public void CheckUpgrades()
     {
@@ -42,22 +41,22 @@ public class Construction : MonoBehaviour
         {
             case 0:
                 IslandScript.bonusGold += 4;
-                IslandScript.workers += 4;
+                IslandScript.GainWorkers(4);
                 upgradeCost[which] = TownHallCosts[upgradesBought[which]];
                 TownHallGold.text = (4 * upgradesBought[which]).ToString("0");
                 TownHallWorkers.text = (4 * upgradesBought[which]).ToString("0");
                 break;
             case 1:
-                IslandScript.workers += IslandScript.tents;
+                IslandScript.GainWorkers(IslandScript.tents);
                 upgradeCost[which] = HouseCosts[upgradesBought[which]];
                 HouseWorkers.text = (2 + upgradesBought[which]).ToString("0");
                 break;
             case 2:
-                IslandScript.goldIncrease += 0.02f * IslandScript.barns;
-                IslandScript.lumberIncrease += 0.01f * IslandScript.barns;
-                upgradeCost[which] = BarnCosts[upgradesBought[which]];
-                BarnGold.text = (4 + 2 * upgradesBought[which]).ToString("0") + "%";
-                BarnLumber.text = (3 + upgradesBought[which]).ToString("0") + "%";
+                IslandScript.GainWorkers(IslandScript.sawmills);
+                IslandScript.sawmillLumber += 2;
+                upgradeCost[which] = SawmillCosts[upgradesBought[which]];
+                SawmillWorkers.text = (1 + upgradesBought[which]).ToString("0");
+                SawmillLumber.text = (2 + 2 * upgradesBought[which]).ToString("0");
                 break;
         }
 

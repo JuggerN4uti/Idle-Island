@@ -5,7 +5,7 @@ using UnityEngine;
 public class ElementCost : MonoBehaviour
 {
     public bool lumber;
-    public int bought, percentCostIncrease;
+    public int bought, percentCostIncrease, powerIncrease;
     public int[] displayLevel;
     public int[] cost;
 }

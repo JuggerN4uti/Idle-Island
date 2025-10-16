@@ -13,7 +13,7 @@ public class Block : MonoBehaviour
     public int blockID;
     public Vector3[] Positions;
     public SpriteRenderer BuildingSprite;
-    public Sprite TentSprite, BarnSprite, SawmillSprite;
+    public Sprite TentSprite, SawmillSprite, BarnSprite;
 
     public void DisplayPlacements()
     {
@@ -55,10 +55,10 @@ public class Block : MonoBehaviour
                 BuildingSprite.sprite = TentSprite;
                 break;
             case 3:
-                BuildingSprite.sprite = BarnSprite;
+                BuildingSprite.sprite = SawmillSprite;
                 break;
             case 5:
-                BuildingSprite.sprite = SawmillSprite;
+                BuildingSprite.sprite = BarnSprite;
                 break;
         }
     }

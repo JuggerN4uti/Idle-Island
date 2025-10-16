@@ -34,5 +34,7 @@ public class Statistics : MonoBehaviour
         StatTextValue[3].text = IslandScript.LumberPerTick().ToString("0") + "/s";
         StatTextValue[4].text = "x" + (IslandScript.goldIncrease).ToString("0.00");
         StatTextValue[5].text = "x" + (IslandScript.lumberIncrease).ToString("0.00");
+        StatTextValue[6].text = IslandScript.FoodPerTick().ToString("0") + "/s";
+        StatTextValue[7].text = "x" + (IslandScript.foodIncrease).ToString("0.00");
     }
 }

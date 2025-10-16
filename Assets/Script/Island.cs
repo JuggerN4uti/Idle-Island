@@ -20,9 +20,9 @@ public class Island : MonoBehaviour
 
     [Header("Resources")]
     public int workers;
-    public int gold, lumber, bonusGold;
-    public int dirtBlocks, tents, trees, barns, farmlands, sawmills, glades;
-    public float goldIncrease, lumberIncrease;
+    public int gold, lumber, food, bonusGold;
+    public int dirtBlocks, tents, trees, barns, farmlands, sawmills, sawmillLumber, glades;
+    public float goldIncrease, lumberIncrease, foodIncrease;
     int workHours;
 
     [Header("Island Elements")]
@@ -34,9 +34,15 @@ public class Island : MonoBehaviour
     public TMPro.TextMeshProUGUI[] elementCostText;
     //public char[] suffix;
 
+    [Header("Hiring")]
+    public int hireCost;
+    public int hireIncrease, suffix;
+    public Button HireButton;
+    public TMPro.TextMeshProUGUI HireCostText;
+
     [Header("UI")]
     public TMPro.TextMeshProUGUI GoldText;
-    public TMPro.TextMeshProUGUI LumberText;
+    public TMPro.TextMeshProUGUI LumberText, FoodText;
     public GameObject[] DirtBlocksObject, TreeObject, TentObject;
 
     [Header("Windowns")]
@@ -44,8 +50,9 @@ public class Island : MonoBehaviour
     public bool[] windowOpened;
 
     [Header("Unlocks")]
-    public GameObject[] ObjectToRemove;
-    public GameObject[] ObjectToUnlock;
+    public int blocksUnlocked;
+    public int buildingsUnlocked, nextBlockUnlockReq, nextBuildingUnlockReq;
+    public GameObject[] BlockToRemove, BlockToUnlock, BuildingToRemove, BuildingToUnlock;
 
     void Start()
     {
@@ -64,6 +71,8 @@ public class Island : MonoBehaviour
             SelectScreen(1);
         if (Input.GetKeyDown(KeyCode.Tab))
             SelectScreen(2);
+        if (Input.GetKeyDown(KeyCode.T))
+            TimeSkip(30);
     }
 
     void Tick()
@@ -76,7 +85,15 @@ public class Island : MonoBehaviour
         }*/
         GainGold(GoldPerTick());
         GainLumber(LumberPerTick());
+        GainFood(FoodPerTick());
         Invoke("Tick", 1f);
+    }
+
+    void TimeSkip(int seconds)
+    {
+        GainGold(GoldPerTick() * seconds);
+        GainLumber(LumberPerTick() * seconds);
+        GainFood(FoodPerTick() * seconds);
     }
 
     void Click(int clicks)
@@ -108,7 +125,7 @@ public class Island : MonoBehaviour
 
     public int LumberPerTick()
     {
-        return trees + sawmills;
+        return trees + (sawmills * (sawmillLumber + workers / 8));
     }
 
     void GainLumber(int amount)
@@ -129,6 +146,33 @@ public class Island : MonoBehaviour
     {
         lumber -= amount;
         LumberText.text = lumber.ToString("0");
+    }
+
+    public int FoodPerTick()
+    {
+        return farmlands;
+    }
+
+    void GainFood(int amount)
+    {
+        amount = Mathf.RoundToInt(amount * foodIncrease);
+        food += amount;
+        FoodText.text = food.ToString("0");
+        //MilestonesScript.ProgressMilestone(1, amount);
+
+        if (food >= hireCost)
+            HireButton.interactable = true;
+        else HireButton.interactable = false;
+    }
+
+    public void SpendFood(int amount)
+    {
+        food -= amount;
+        FoodText.text = food.ToString("0");
+
+        if (food >= hireCost)
+            HireButton.interactable = true;
+        else HireButton.interactable = false;
     }
 
     void CheckElements()
@@ -203,6 +247,25 @@ public class Island : MonoBehaviour
         }
     }
 
+    public void HireWorker()
+    {
+        SpendFood(hireCost);
+        GainWorkers(1);
+        hireCost += hireIncrease;
+        if (hireCost == 1000)
+        {
+            hireIncrease = 1000;
+            suffix++;
+        }
+        else if (hireCost == 10000)
+            hireIncrease = 10000;
+        else if (hireCost == 100000)
+            hireIncrease = 100000;
+        if (suffix > 0)
+            HireCostText.text = (hireCost / 1000).ToString("0") + "k";
+        else HireCostText.text = hireCost.ToString("0");
+    }
+
     void Build(int element, bool block)
     {
         placing = element;
@@ -260,24 +323,21 @@ public class Island : MonoBehaviour
                 break;
             case 1:
                 tents++;
-                workers += (2 + ConstructionScript.upgradesBought[1]);
+                GainWorkers(2 + ConstructionScript.upgradesBought[1]);
                 break;
             case 2:
                 trees++;
                 break;
             case 3:
-                barns++;
-                //bonusGold += (4 + 3 * ConstructionScript.upgradesBought[2]);
-                //goldIncrease += (0.002f + 0.001f * ConstructionScript.upgradesBought[2]) * dirtBlocks;
-                goldIncrease += (0.04f + 0.02f * ConstructionScript.upgradesBought[2]);
-                lumberIncrease += (0.03f + 0.01f * ConstructionScript.upgradesBought[2]);
+                sawmills++;
+                GainWorkers(1 + ConstructionScript.upgradesBought[2]);
                 break;
             case 4:
                 farmlands++;
-                GainBlock();
+                //GainBlock();
                 break;
             case 5:
-                sawmills++;
+                barns++;
                 //GainBlock();
                 break;
             case 6:
@@ -298,22 +358,38 @@ public class Island : MonoBehaviour
         //if (barns > 0)
             //goldIncrease += (0.002f + 0.001f * ConstructionScript.upgradesBought[2]) * barns;
         MilestonesScript.ProgressMilestone(0, 1);
-        if (dirtBlocks == 9)
-            UnlockElement(0);
-        if (dirtBlocks == 16)
-            UnlockElement(1);
-        if (dirtBlocks == 25)
-            UnlockElement(2);
-        if (dirtBlocks == 36)
-            UnlockElement(3);
-        if (dirtBlocks == 49)
-            UnlockElement(4);
+        if (dirtBlocks >= nextBlockUnlockReq)
+            UnlockBlock();
+    }
+
+    public void GainWorkers(int amount)
+    {
+        workers += amount;
+        if (workers >= nextBuildingUnlockReq)
+            UnlockBuilding();
+    }
+
+    void UnlockBlock()
+    {
+        BlockToRemove[blocksUnlocked].SetActive(false);
+        BlockToUnlock[blocksUnlocked].SetActive(true);
+        blocksUnlocked++;
+        nextBlockUnlockReq = (3 + blocksUnlocked * 2);
+        nextBlockUnlockReq *= nextBlockUnlockReq;
+    }
+
+    void UnlockBuilding()
+    {
+        BuildingToRemove[buildingsUnlocked].SetActive(false);
+        BuildingToUnlock[buildingsUnlocked].SetActive(true);
+        buildingsUnlocked++;
+        nextBuildingUnlockReq = (30 + 5 * buildingsUnlocked) * (1 + buildingsUnlocked);
     }
 
     void UnlockElement(int elementID)
     {
-        ObjectToRemove[elementID].SetActive(false);
-        ObjectToUnlock[elementID].SetActive(true);
+        //ObjectToRemove[elementID].SetActive(false);
+        //ObjectToUnlock[elementID].SetActive(true);
     }
 
     public void SelectScreen(int screen)
