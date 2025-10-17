@@ -17,6 +17,7 @@ public class Construction : MonoBehaviour
     public Button[] UpgradeButton;
     public TMPro.TextMeshProUGUI[] UpgradeCostText;
     public TMPro.TextMeshProUGUI TownHallGold, TownHallWorkers, HouseWorkers, SawmillWorkers, SawmillLumber;
+    public GameObject PingObject;
 
     [Header("Construction Costs")]
     public int[] TownHallCosts;
@@ -30,6 +31,7 @@ public class Construction : MonoBehaviour
                 UpgradeButton[i].interactable = true;
             else UpgradeButton[i].interactable = false;
         }
+        PingObject.SetActive(false);
     }
 
     public void UpgradeBuilding(int which)

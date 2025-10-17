@@ -17,17 +17,25 @@ public class Milestones : MonoBehaviour
     public Image[] MilestoneBarFill;
     public Button[] MilestoneBarButton;
     public TMPro.TextMeshProUGUI[] MilestoneProgressText, BonusFromMilestone;
+    public GameObject PingObject;
 
     [Header("Milestones Goals")]
     public int[] dirtToPlace;
     public int[] goldToCollect;
     public int[] lumberToCollect;
+    public int[] foodToCollect;
 
     public void ProgressMilestone(int ID, int amount)
     {
         milestoneProgress[ID] += amount;
-        if (milestoneProgress[ID] >= milestoneGoal[ID])
-            milestoneComplete[ID] = true;
+        if (!milestoneComplete[ID])
+        {
+            if (milestoneProgress[ID] >= milestoneGoal[ID])
+            {
+                milestoneComplete[ID] = true;
+                PingObject.SetActive(true);
+            }
+        }
 
         if (IslandScript.windowOpened[0])
             DisplayMilestone(ID);
@@ -58,6 +66,12 @@ public class Milestones : MonoBehaviour
                 milestoneGoalText[2] = SetMilestoneGoalText(milestoneGoal[2]);
                 BonusFromMilestone[ID].text = "+" + (milestonesReached[ID] * 5).ToString("0") + "%\nLumber";
                 break;
+            case 3:
+                IslandScript.foodIncrease += 0.05f;
+                milestoneGoal[3] = foodToCollect[milestonesReached[3]];
+                milestoneGoalText[3] = SetMilestoneGoalText(milestoneGoal[3]);
+                BonusFromMilestone[ID].text = "+" + (milestonesReached[ID] * 5).ToString("0") + "%\nFood";
+                break;
         }
 
         milestoneComplete[ID] = false;
@@ -71,6 +85,7 @@ public class Milestones : MonoBehaviour
         {
             DisplayMilestone(i);
         }
+        PingObject.SetActive(false);
     }
 
     void DisplayMilestone(int ID)

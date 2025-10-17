@@ -41,8 +41,8 @@ public class Island : MonoBehaviour
     public TMPro.TextMeshProUGUI HireCostText;
 
     [Header("UI")]
-    public TMPro.TextMeshProUGUI GoldText;
-    public TMPro.TextMeshProUGUI LumberText, FoodText;
+    public TMPro.TextMeshProUGUI LandText;
+    public TMPro.TextMeshProUGUI WorkersText, GoldText, LumberText, FoodText;
     public GameObject[] DirtBlocksObject, TreeObject, TentObject;
 
     [Header("Windowns")]
@@ -158,7 +158,7 @@ public class Island : MonoBehaviour
         amount = Mathf.RoundToInt(amount * foodIncrease);
         food += amount;
         FoodText.text = food.ToString("0");
-        //MilestonesScript.ProgressMilestone(1, amount);
+        MilestonesScript.ProgressMilestone(3, amount);
 
         if (food >= hireCost)
             HireButton.interactable = true;
@@ -355,8 +355,9 @@ public class Island : MonoBehaviour
     void GainBlock()
     {
         dirtBlocks++;
+        LandText.text = dirtBlocks.ToString("0");
         //if (barns > 0)
-            //goldIncrease += (0.002f + 0.001f * ConstructionScript.upgradesBought[2]) * barns;
+        //goldIncrease += (0.002f + 0.001f * ConstructionScript.upgradesBought[2]) * barns;
         MilestonesScript.ProgressMilestone(0, 1);
         if (dirtBlocks >= nextBlockUnlockReq)
             UnlockBlock();
@@ -365,6 +366,7 @@ public class Island : MonoBehaviour
     public void GainWorkers(int amount)
     {
         workers += amount;
+        WorkersText.text = workers.ToString("0");
         if (workers >= nextBuildingUnlockReq)
             UnlockBuilding();
     }
