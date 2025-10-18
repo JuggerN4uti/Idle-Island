@@ -104,7 +104,7 @@ public class Island : MonoBehaviour
 
     public int GoldPerTick()
     {
-        return dirtBlocks + bonusGold + workers + (dirtBlocks * glades / 40);
+        return (dirtBlocks * (40 + glades) / 40) + bonusGold + workers;
     }
 
     void GainGold(int amount)

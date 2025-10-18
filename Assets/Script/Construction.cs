@@ -16,7 +16,7 @@ public class Construction : MonoBehaviour
     [Header("UI")]
     public Button[] UpgradeButton;
     public TMPro.TextMeshProUGUI[] UpgradeCostText;
-    public TMPro.TextMeshProUGUI TownHallGold, TownHallWorkers, HouseWorkers, SawmillWorkers, SawmillLumber;
+    public TMPro.TextMeshProUGUI TownHallGold, TownHallGoldIncrease, TownHallWorkers, HouseWorkers, SawmillWorkers, SawmillLumber;
     public GameObject PingObject;
 
     [Header("Construction Costs")]
@@ -42,10 +42,11 @@ public class Construction : MonoBehaviour
         switch (which)
         {
             case 0:
-                IslandScript.bonusGold += 4;
+                IslandScript.bonusGold += 3 + upgradesBought[which];
                 IslandScript.GainWorkers(4);
                 upgradeCost[which] = TownHallCosts[upgradesBought[which]];
                 TownHallGold.text = (4 * upgradesBought[which]).ToString("0");
+                TownHallGoldIncrease.text = "+" + (4 + upgradesBought[which]).ToString("0");
                 TownHallWorkers.text = (4 * upgradesBought[which]).ToString("0");
                 break;
             case 1:
