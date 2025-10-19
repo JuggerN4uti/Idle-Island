@@ -33,7 +33,8 @@ public class Milestones : MonoBehaviour
             if (milestoneProgress[ID] >= milestoneGoal[ID])
             {
                 milestoneComplete[ID] = true;
-                PingObject.SetActive(true);
+                if (!IslandScript.windowOpened[0])
+                    PingObject.SetActive(true);
             }
         }
 

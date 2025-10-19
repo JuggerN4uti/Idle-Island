@@ -19,11 +19,15 @@ public class Island : MonoBehaviour
     public GameObject[] BlockPrefab;
 
     [Header("Resources")]
-    public int workers;
+    public int dirtBlocks;
     public int gold, lumber, food, bonusGold;
-    public int dirtBlocks, tents, trees, barns, farmlands, sawmills, sawmillLumber, glades;
+    public int landEfficiency, tents, trees, farmlands, glades, sawmills, sawmillLumber, barns, barnsFood;
     public float goldIncrease, lumberIncrease, foodIncrease;
     int workHours;
+
+    [Header("Workers Stats")]
+    public int workers;
+    public int goldPercent, lumberPercent, foodPercent;
 
     [Header("Island Elements")]
     public int freeSpaces;
@@ -104,7 +108,7 @@ public class Island : MonoBehaviour
 
     public int GoldPerTick()
     {
-        return (dirtBlocks * (40 + glades) / 40) + bonusGold + workers;
+        return (dirtBlocks * landEfficiency / 100) + bonusGold + (workers * goldPercent / 100);
     }
 
     void GainGold(int amount)
@@ -125,7 +129,7 @@ public class Island : MonoBehaviour
 
     public int LumberPerTick()
     {
-        return trees + (sawmills * (sawmillLumber + workers / 8));
+        return trees * 2 + sawmills * sawmillLumber + (workers * lumberPercent / 100);
     }
 
     void GainLumber(int amount)
@@ -150,7 +154,7 @@ public class Island : MonoBehaviour
 
     public int FoodPerTick()
     {
-        return farmlands;
+        return farmlands * 2 + barns * barnsFood + (workers * foodPercent / 100);
     }
 
     void GainFood(int amount)
@@ -229,13 +233,13 @@ public class Island : MonoBehaviour
                 case 2: // forest block
                     Build(2, true);
                     break;
-                case 3: // barn
+                case 3: // sawmill
                     Build(3, false);
                     break;
                 case 4: // farmland block
                     Build(4, true);
                     break;
-                case 5: // sawmill
+                case 5: // barn
                     Build(5, false);
                     break;
                 case 6: // glade block
@@ -323,6 +327,7 @@ public class Island : MonoBehaviour
                 break;
             case 1:
                 tents++;
+                bonusGold += 1 + ConstructionScript.upgradesBought[1];
                 GainWorkers(2 + ConstructionScript.upgradesBought[1]);
                 break;
             case 2:
@@ -330,18 +335,21 @@ public class Island : MonoBehaviour
                 break;
             case 3:
                 sawmills++;
-                GainWorkers(1 + ConstructionScript.upgradesBought[2]);
+                GainWorkers(2 + ConstructionScript.upgradesBought[2]);
+                lumberPercent += 8 + ConstructionScript.upgradesBought[2];
                 break;
             case 4:
                 farmlands++;
-                //GainBlock();
                 break;
             case 5:
                 barns++;
+                GainWorkers(3 + ConstructionScript.upgradesBought[3]);
+                foodPercent += 6 + ConstructionScript.upgradesBought[3];
                 //GainBlock();
                 break;
             case 6:
                 glades++;
+                landEfficiency += 5;
                 freeSpaces++;
                 //GainBlock();
                 break;
