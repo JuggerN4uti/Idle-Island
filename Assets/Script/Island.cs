@@ -28,6 +28,7 @@ public class Island : MonoBehaviour
     [Header("Workers Stats")]
     public int workers;
     public int goldPercent, lumberPercent, foodPercent;
+    public float tickRate;
 
     [Header("Island Elements")]
     public int freeSpaces;
@@ -62,7 +63,7 @@ public class Island : MonoBehaviour
     {
         MilestonesScript.ProgressMilestone(0, 1);
         CheckElements();
-        Invoke("Tick", 1f);
+        Invoke("Tick", 1f / tickRate);
     }
 
     void Update()
@@ -90,7 +91,8 @@ public class Island : MonoBehaviour
         GainGold(GoldPerTick());
         GainLumber(LumberPerTick());
         GainFood(FoodPerTick());
-        Invoke("Tick", 1f);
+        MilestonesScript.ProgressMilestone(4, workers);
+        Invoke("Tick", 1f / tickRate);
     }
 
     void TimeSkip(int seconds)
@@ -98,6 +100,7 @@ public class Island : MonoBehaviour
         GainGold(GoldPerTick() * seconds);
         GainLumber(LumberPerTick() * seconds);
         GainFood(FoodPerTick() * seconds);
+        MilestonesScript.ProgressMilestone(4, workers * seconds);
     }
 
     void Click(int clicks)

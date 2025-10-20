@@ -7,6 +7,7 @@ public class Milestones : MonoBehaviour
 {
     [Header("Scripts")]
     public Island IslandScript;
+    public Scrollbar sliderScript;
 
     [Header("Milestones")]
     public bool[] milestoneComplete; // 0 - total island score, 1 - gold collected, lumber collected
@@ -18,12 +19,14 @@ public class Milestones : MonoBehaviour
     public Button[] MilestoneBarButton;
     public TMPro.TextMeshProUGUI[] MilestoneProgressText, BonusFromMilestone;
     public GameObject PingObject;
+    public RectTransform ContentTransform;
 
     [Header("Milestones Goals")]
     public int[] dirtToPlace;
     public int[] goldToCollect;
     public int[] lumberToCollect;
     public int[] foodToCollect;
+    public int[] ticksToWork;
 
     public void ProgressMilestone(int ID, int amount)
     {
@@ -50,10 +53,10 @@ public class Milestones : MonoBehaviour
         switch (ID)
         {
             case 0:
-                IslandScript.bonusGold += 5;
+                IslandScript.landEfficiency += 30;
                 milestoneGoal[0] = dirtToPlace[milestonesReached[0]];
                 milestoneGoalText[0] = SetMilestoneGoalText(milestoneGoal[0]);
-                BonusFromMilestone[ID].text = "+" + (milestonesReached[ID] * 5).ToString("0") + "\nGold per Second";
+                BonusFromMilestone[ID].text = "+" + (milestonesReached[ID] * 0.3f).ToString("0.0") + "\nGold per Block";
                 break;
             case 1:
                 IslandScript.goldIncrease += 0.05f;
@@ -72,6 +75,12 @@ public class Milestones : MonoBehaviour
                 milestoneGoal[3] = foodToCollect[milestonesReached[3]];
                 milestoneGoalText[3] = SetMilestoneGoalText(milestoneGoal[3]);
                 BonusFromMilestone[ID].text = "+" + (milestonesReached[ID] * 5).ToString("0") + "%\nFood";
+                break;
+            case 4:
+                IslandScript.tickRate += 0.05f;
+                milestoneGoal[4] = ticksToWork[milestonesReached[4]];
+                milestoneGoalText[4] = SetMilestoneGoalText(milestoneGoal[4]);
+                BonusFromMilestone[ID].text = "+" + (milestonesReached[ID] * 5).ToString("0") + "%\nTick Rate";
                 break;
         }
 
@@ -100,11 +109,16 @@ public class Milestones : MonoBehaviour
     string SetMilestoneGoalText(int amount)
     {
         int tempi = 0;
-        while (amount >= 10000)
+        while (amount >= 1000)
         {
             amount /= 1000;
             tempi++;
         }
         return amount.ToString() + suffix[tempi];
+    }
+
+    public void moveUI()
+    {
+        //ContentTransform.transform.position = new Vector3(0f, sliderScript.value * 125f, 0f);
     }
 }
