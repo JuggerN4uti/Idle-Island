@@ -42,38 +42,38 @@ public class Construction : MonoBehaviour
         switch (which)
         {
             case 0:
-                IslandScript.bonusGold += 3;
+                IslandScript.goldIncrease += 0.04f;
                 IslandScript.GainWorkers(4);
-                IslandScript.goldPercent += 3;
+                IslandScript.goldPercent += 0.02f;
                 upgradeCost[which] = TownHallCosts[upgradesBought[which]];
-                TownHallGold.text = (3 * upgradesBought[which]).ToString("0");
-                TownHallWorkers.text = (1 + 4 * upgradesBought[which]).ToString("0");
-                TownHallEfficiency.text = (100 + 3 * upgradesBought[which]).ToString("0") + "%";
+                TownHallGold.text = (4 * upgradesBought[which]).ToString("0") + "%";
+                TownHallWorkers.text = (4 * upgradesBought[which]).ToString("0");
+                TownHallEfficiency.text = (2 * upgradesBought[which]).ToString("0") + "%";
                 break;
             case 1:
-                IslandScript.bonusGold += IslandScript.tents;
+                IslandScript.goldIncrease += IslandScript.tents * 0.01f;
                 IslandScript.GainWorkers(IslandScript.tents);
                 upgradeCost[which] = HouseCosts[upgradesBought[which]];
-                HouseGold.text = (1 + upgradesBought[which]).ToString("0");
+                HouseGold.text = (1 + upgradesBought[which]).ToString("0") + "%";
                 HouseWorkers.text = (2 + upgradesBought[which]).ToString("0");
                 break;
             case 2:
                 IslandScript.GainWorkers(IslandScript.sawmills);
-                IslandScript.sawmillLumber += 2;
-                IslandScript.lumberPercent += IslandScript.sawmills;
+                IslandScript.forestYield += IslandScript.sawmills;
+                IslandScript.lumberPercent += IslandScript.sawmills * 0.01f;
                 upgradeCost[which] = SawmillCosts[upgradesBought[which]];
-                SawmillWorkers.text = (2 + upgradesBought[which]).ToString("0");
-                SawmillLumber.text = (3 + 2 * upgradesBought[which]).ToString("0");
-                SawmillEfficiency.text = (8 + upgradesBought[which]).ToString("0") + "%";
+                SawmillWorkers.text = (3 + upgradesBought[which]).ToString("0");
+                SawmillLumber.text = (1 + upgradesBought[which]).ToString("0");
+                SawmillEfficiency.text = (1 + upgradesBought[which]).ToString("0") + "%";
                 break;
             case 3:
                 IslandScript.GainWorkers(IslandScript.barns);
-                IslandScript.barnsFood += 1;
-                IslandScript.foodPercent += IslandScript.barns;
+                IslandScript.farmYield += IslandScript.barns;
+                IslandScript.foodPercent += IslandScript.barns * 0.01f;
                 upgradeCost[which] = BarnCosts[upgradesBought[which]];
-                BarnWorkers.text = (3 + upgradesBought[which]).ToString("0");
-                BarnFood.text = (2 + upgradesBought[which]).ToString("0");
-                BarnEfficiency.text = (6 + upgradesBought[which]).ToString("0") + "%";
+                BarnWorkers.text = (4 + upgradesBought[which]).ToString("0");
+                BarnFood.text = (1 + upgradesBought[which]).ToString("0");
+                BarnEfficiency.text = (1 + upgradesBought[which]).ToString("0") + "%";
                 break;
         }
 

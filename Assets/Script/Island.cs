@@ -21,13 +21,13 @@ public class Island : MonoBehaviour
     [Header("Resources")]
     public int dirtBlocks;
     public int gold, lumber, food, bonusGold;
-    public int landEfficiency, tents, trees, farmlands, glades, sawmills, sawmillLumber, barns, barnsFood;
+    public int landEfficiency, tents, trees, forestYield, farmlands, farmYield, glades, sawmills, barns;
     public float goldIncrease, lumberIncrease, foodIncrease;
     int workHours;
 
     [Header("Workers Stats")]
     public int workers;
-    public int goldPercent, lumberPercent, foodPercent;
+    public float goldPercent, lumberPercent, foodPercent;
     public float tickRate;
 
     [Header("Island Elements")]
@@ -111,12 +111,17 @@ public class Island : MonoBehaviour
 
     public int GoldPerTick()
     {
-        return (dirtBlocks * landEfficiency / 100) + bonusGold + (workers * goldPercent / 100);
+        return (dirtBlocks * landEfficiency / 100) + bonusGold;
+    }
+
+    public float GoldIncrease()
+    {
+        return goldIncrease * (1f + (goldPercent * workers / 100f));
     }
 
     void GainGold(int amount)
     {
-        amount = Mathf.RoundToInt(amount * goldIncrease);
+        amount = Mathf.RoundToInt(amount * GoldIncrease());
         gold += amount;
         GoldText.text = gold.ToString("0");
         MilestonesScript.ProgressMilestone(1, amount);
@@ -132,12 +137,17 @@ public class Island : MonoBehaviour
 
     public int LumberPerTick()
     {
-        return trees * 2 + sawmills * sawmillLumber + (workers * lumberPercent / 100);
+        return trees * forestYield;
+    }
+
+    public float LumberIncrease()
+    {
+        return lumberIncrease * (1f + (lumberPercent * workers / 100f));
     }
 
     void GainLumber(int amount)
     {
-        amount = Mathf.RoundToInt(amount * lumberIncrease);
+        amount = Mathf.RoundToInt(amount * LumberIncrease());
         lumber += amount;
         LumberText.text = lumber.ToString("0");
         MilestonesScript.ProgressMilestone(2, amount);
@@ -157,12 +167,17 @@ public class Island : MonoBehaviour
 
     public int FoodPerTick()
     {
-        return farmlands * 2 + barns * barnsFood + (workers * foodPercent / 100);
+        return farmlands * farmYield;
+    }
+
+    public float FoodIncrease()
+    {
+        return foodIncrease * (1f + (foodPercent * workers / 100f));
     }
 
     void GainFood(int amount)
     {
-        amount = Mathf.RoundToInt(amount * foodIncrease);
+        amount = Mathf.RoundToInt(amount * FoodIncrease());
         food += amount;
         FoodText.text = food.ToString("0");
         MilestonesScript.ProgressMilestone(3, amount);
@@ -330,7 +345,7 @@ public class Island : MonoBehaviour
                 break;
             case 1:
                 tents++;
-                bonusGold += 1 + ConstructionScript.upgradesBought[1];
+                goldIncrease += 0.01f + 0.01f * ConstructionScript.upgradesBought[1];
                 GainWorkers(2 + ConstructionScript.upgradesBought[1]);
                 break;
             case 2:
@@ -338,21 +353,23 @@ public class Island : MonoBehaviour
                 break;
             case 3:
                 sawmills++;
-                GainWorkers(2 + ConstructionScript.upgradesBought[2]);
-                lumberPercent += 8 + ConstructionScript.upgradesBought[2];
+                GainWorkers(3 + ConstructionScript.upgradesBought[2]);
+                forestYield += 1 + ConstructionScript.upgradesBought[2];
+                lumberPercent += 0.01f + 0.01f * ConstructionScript.upgradesBought[2];
                 break;
             case 4:
                 farmlands++;
                 break;
             case 5:
                 barns++;
-                GainWorkers(3 + ConstructionScript.upgradesBought[3]);
-                foodPercent += 6 + ConstructionScript.upgradesBought[3];
+                GainWorkers(4 + ConstructionScript.upgradesBought[3]);
+                farmYield += 1 + ConstructionScript.upgradesBought[3];
+                foodPercent += 0.01f + 0.01f * ConstructionScript.upgradesBought[3];
                 //GainBlock();
                 break;
             case 6:
                 glades++;
-                landEfficiency += 5;
+                landEfficiency += 8;
                 freeSpaces++;
                 //GainBlock();
                 break;
@@ -376,6 +393,7 @@ public class Island : MonoBehaviour
 
     public void GainWorkers(int amount)
     {
+        landEfficiency += 5 * amount;
         workers += amount;
         WorkersText.text = workers.ToString("0");
         if (workers >= nextBuildingUnlockReq)
