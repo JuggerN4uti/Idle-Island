@@ -8653,7 +8653,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '+4
+  m_text: '+5
 
 '
   m_isRightToLeft: 0
@@ -12037,7 +12037,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'x120
+  m_text: 'x150
 
 '
   m_isRightToLeft: 0
@@ -13975,7 +13975,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 500
+  m_text: 600
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -15588,7 +15588,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: +1%
+  m_text: +0,6%
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -16614,7 +16614,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 1%
+  m_text: 0,8%
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -18079,7 +18079,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: +2%
+  m_text: +1%
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -20523,7 +20523,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'x70
+  m_text: 'x80
 
 '
   m_isRightToLeft: 0
@@ -21460,7 +21460,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IslandScript: {fileID: 802508531}
-  upgradeCost: f4010000c409000010270000a8610000
+  upgradeCost: 58020000c409000010270000a8610000
   upgradesBought: 00000000000000000000000000000000
   suffix:
   - 
@@ -21489,7 +21489,7 @@ MonoBehaviour:
   BarnFood: {fileID: 153639580}
   BarnEfficiency: {fileID: 378899115}
   PingObject: {fileID: 2055113294}
-  TownHallCosts: f4010000dc050000a00f000034210000744000003075000020cb0000c0570100
+  TownHallCosts: 5802000008070000c012000010270000204e0000a08c000030f20000b0ad0100
   HouseCosts: c409000088130000e02e0000a861000008cf000018730100
   SawmillCosts: 10270000a861000050c30000905f0100
   BarnCosts: a861000060ea000038c10100400d0300

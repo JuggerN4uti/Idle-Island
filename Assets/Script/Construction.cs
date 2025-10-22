@@ -43,18 +43,18 @@ public class Construction : MonoBehaviour
         {
             case 0:
                 IslandScript.goldIncrease += 0.04f;
-                IslandScript.GainWorkers(4);
-                IslandScript.goldPercent += 0.02f;
+                IslandScript.GainWorkers(5);
+                IslandScript.goldPercent += 0.01f;
                 upgradeCost[which] = TownHallCosts[upgradesBought[which]];
                 TownHallGold.text = (4 * upgradesBought[which]).ToString("0") + "%";
-                TownHallWorkers.text = (4 * upgradesBought[which]).ToString("0");
-                TownHallEfficiency.text = (2 * upgradesBought[which]).ToString("0") + "%";
+                TownHallWorkers.text = (5 * upgradesBought[which]).ToString("0");
+                TownHallEfficiency.text = (1 * upgradesBought[which]).ToString("0") + "%";
                 break;
             case 1:
-                IslandScript.goldIncrease += IslandScript.tents * 0.01f;
+                IslandScript.goldIncrease += IslandScript.tents * 0.006f;
                 IslandScript.GainWorkers(IslandScript.tents);
                 upgradeCost[which] = HouseCosts[upgradesBought[which]];
-                HouseGold.text = (1 + upgradesBought[which]).ToString("0") + "%";
+                HouseGold.text = (0.8f + 0.6f * upgradesBought[which]).ToString("0.0") + "%";
                 HouseWorkers.text = (2 + upgradesBought[which]).ToString("0");
                 break;
             case 2:

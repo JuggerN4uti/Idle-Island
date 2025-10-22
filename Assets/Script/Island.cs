@@ -345,7 +345,7 @@ public class Island : MonoBehaviour
                 break;
             case 1:
                 tents++;
-                goldIncrease += 0.01f + 0.01f * ConstructionScript.upgradesBought[1];
+                goldIncrease += 0.008f + 0.006f * ConstructionScript.upgradesBought[1];
                 GainWorkers(2 + ConstructionScript.upgradesBought[1]);
                 break;
             case 2:
@@ -414,7 +414,7 @@ public class Island : MonoBehaviour
         BuildingToRemove[buildingsUnlocked].SetActive(false);
         BuildingToUnlock[buildingsUnlocked].SetActive(true);
         buildingsUnlocked++;
-        nextBuildingUnlockReq = (30 + 5 * buildingsUnlocked) * (1 + buildingsUnlocked);
+        nextBuildingUnlockReq = (30 + 10 * buildingsUnlocked) * (1 + buildingsUnlocked);
     }
 
     void UnlockElement(int elementID)
