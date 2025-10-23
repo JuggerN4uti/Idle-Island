@@ -77,7 +77,7 @@ public class Island : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Tab))
             SelectScreen(2);
         if (Input.GetKeyDown(KeyCode.T))
-            TimeSkip(30);
+            TimeSkip(30 + MilestonesScript.milestonesReached[4]);
     }
 
     void Tick()
@@ -355,7 +355,7 @@ public class Island : MonoBehaviour
                 sawmills++;
                 GainWorkers(3 + ConstructionScript.upgradesBought[2]);
                 forestYield += 1 + ConstructionScript.upgradesBought[2];
-                lumberPercent += 0.01f + 0.01f * ConstructionScript.upgradesBought[2];
+                lumberPercent += 0.012f + 0.01f * ConstructionScript.upgradesBought[2];
                 break;
             case 4:
                 farmlands++;
@@ -364,7 +364,7 @@ public class Island : MonoBehaviour
                 barns++;
                 GainWorkers(4 + ConstructionScript.upgradesBought[3]);
                 farmYield += 1 + ConstructionScript.upgradesBought[3];
-                foodPercent += 0.01f + 0.01f * ConstructionScript.upgradesBought[3];
+                foodPercent += 0.014f + 0.01f * ConstructionScript.upgradesBought[3];
                 //GainBlock();
                 break;
             case 6:
@@ -414,7 +414,7 @@ public class Island : MonoBehaviour
         BuildingToRemove[buildingsUnlocked].SetActive(false);
         BuildingToUnlock[buildingsUnlocked].SetActive(true);
         buildingsUnlocked++;
-        nextBuildingUnlockReq = (30 + 10 * buildingsUnlocked) * (1 + buildingsUnlocked);
+        nextBuildingUnlockReq = (30 + 15 * buildingsUnlocked) * (1 + buildingsUnlocked);
     }
 
     void UnlockElement(int elementID)

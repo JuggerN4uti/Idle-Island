@@ -6,14 +6,14 @@ using UnityEngine.UI;
 public class Block : MonoBehaviour
 {
     public Island IslandScript;
+    public Building BuildingScript;
     public Button[] PlacementButton;
     public Button BuildingButton;
     public bool[] PlacementViable;
     public bool BuildingViable;
     public int blockID;
     public Vector3[] Positions;
-    public SpriteRenderer BuildingSprite;
-    public Sprite TentSprite, SawmillSprite, BarnSprite;
+    public GameObject BuildingObject;
 
     public void DisplayPlacements()
     {
@@ -46,21 +46,10 @@ public class Block : MonoBehaviour
 
     public void PlaceBuild()
     {
-        BuildingSprite.enabled = true;
+        BuildingObject.SetActive(true);
         IslandScript.PlaceElement(blockID, 0, false);
+        BuildingScript.Build(IslandScript.placing);
         BuildingViable = false;
-        switch (IslandScript.placing)
-        {
-            case 1:
-                BuildingSprite.sprite = TentSprite;
-                break;
-            case 3:
-                BuildingSprite.sprite = SawmillSprite;
-                break;
-            case 5:
-                BuildingSprite.sprite = BarnSprite;
-                break;
-        }
     }
 
     public void UpdateViability(Vector2 newBlockPosition)
