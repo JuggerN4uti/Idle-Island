@@ -27,6 +27,7 @@ public class Island : MonoBehaviour
 
     [Header("Workers Stats")]
     public int workers;
+    public int taxEfficiency;
     public float goldPercent, lumberPercent, foodPercent;
     public float tickRate;
 
@@ -77,7 +78,7 @@ public class Island : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Tab))
             SelectScreen(2);
         if (Input.GetKeyDown(KeyCode.T))
-            TimeSkip(30 + MilestonesScript.milestonesReached[4]);
+            TimeSkip(30);
     }
 
     void Tick()
@@ -111,7 +112,7 @@ public class Island : MonoBehaviour
 
     public int GoldPerTick()
     {
-        return (dirtBlocks * landEfficiency / 100) + bonusGold;
+        return (dirtBlocks * landEfficiency / 100) + (workers * taxEfficiency / 100);
     }
 
     public float GoldIncrease()
@@ -393,7 +394,6 @@ public class Island : MonoBehaviour
 
     public void GainWorkers(int amount)
     {
-        landEfficiency += 5 * amount;
         workers += amount;
         WorkersText.text = workers.ToString("0");
         if (workers >= nextBuildingUnlockReq)

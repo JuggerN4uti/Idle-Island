@@ -9105,6 +9105,7 @@ MonoBehaviour:
   lumberIncrease: 1
   foodIncrease: 1
   workers: 0
+  taxEfficiency: 100
   goldPercent: 0
   lumberPercent: 0
   foodPercent: 0
@@ -9628,7 +9629,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 190, y: -280}
+  m_AnchoredPosition: {x: -190, y: -348}
   m_SizeDelta: {x: 370, y: 60}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &826542097
@@ -10137,8 +10138,8 @@ MonoBehaviour:
   bought: 0
   percentCostIncrease: 50
   powerIncrease: 0
-  displayLevel: 00000000010000000100000001000000010000000100000001000000
-  cost: 781e00001879000018730100d06c0400601f0d0040ac2700a0987b00
+  displayLevel: 000000000100000001000000010000000100000001000000
+  cost: 4826000070940000c0d40100407e0500e0c8100000d43000
 --- !u!1 &861637425
 GameObject:
   m_ObjectHideFlags: 0
@@ -10930,7 +10931,7 @@ MonoBehaviour:
   percentCostIncrease: 40
   powerIncrease: 1
   displayLevel: 0000000001000000010000000100000001000000010000000100000001000000
-  cost: c4090000f82a0000e8800000e87a0100c045040020830c00a0252600e0707200
+  cost: b80b0000c8320000409c0000c0d4010020300500301b0f00c0c62d0040548900
 --- !u!1 &958709692
 GameObject:
   m_ObjectHideFlags: 0
@@ -14238,7 +14239,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 2500
+  m_text: 3000
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -15069,9 +15070,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '+0%
+  m_text: '+0
 
-    Tick Rate'
+    Gold per
+
+    Worker'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -15098,8 +15101,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 26
-  m_fontSizeBase: 26
+  m_fontSize: 22
+  m_fontSizeBase: 22
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -16590,9 +16593,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '0,0%
-
-'
+  m_text: 1,00
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -18758,7 +18759,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -190, y: -416}
+  m_AnchoredPosition: {x: 190, y: -348}
   m_SizeDelta: {x: 370, y: 60}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1592155126
@@ -20049,7 +20050,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -190, y: -348}
+  m_AnchoredPosition: {x: -190, y: -416}
   m_SizeDelta: {x: 370, y: 60}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1733347080
@@ -23099,7 +23100,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 190, y: -348}
+  m_AnchoredPosition: {x: 190, y: -280}
   m_SizeDelta: {x: 370, y: 60}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &2058243721
@@ -23280,7 +23281,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 100
+  m_text: 3k
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -23556,7 +23557,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 7800
+  m_text: 9800
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

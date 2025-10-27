@@ -53,10 +53,10 @@ public class Milestones : MonoBehaviour
         switch (ID)
         {
             case 0:
-                IslandScript.landEfficiency += 50;
+                IslandScript.landEfficiency += 30;
                 milestoneGoal[0] = dirtToPlace[milestonesReached[0]];
                 milestoneGoalText[0] = SetMilestoneGoalText(milestoneGoal[0]);
-                BonusFromMilestone[ID].text = "+" + (milestonesReached[ID] * 0.5f).ToString("0.0") + "\nGold per Block";
+                BonusFromMilestone[ID].text = "+" + (milestonesReached[ID] * 0.3f).ToString("0.0") + "\nGold per Block";
                 break;
             case 1:
                 IslandScript.goldIncrease += 0.05f;
@@ -77,10 +77,10 @@ public class Milestones : MonoBehaviour
                 BonusFromMilestone[ID].text = "+" + (milestonesReached[ID] * 5).ToString("0") + "%\nFood";
                 break;
             case 4:
-                IslandScript.tickRate += 0.05f;
+                IslandScript.taxEfficiency += 20;
                 milestoneGoal[4] = ticksToWork[milestonesReached[4]];
                 milestoneGoalText[4] = SetMilestoneGoalText(milestoneGoal[4]);
-                BonusFromMilestone[ID].text = "+" + (milestonesReached[ID] * 5).ToString("0") + "%\nTick Rate";
+                BonusFromMilestone[ID].text = "+" + (milestonesReached[ID] * 0.2f).ToString("0.0") + "\nGold per Worker";
                 break;
         }
 

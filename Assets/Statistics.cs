@@ -39,7 +39,7 @@ public class Statistics : MonoBehaviour
         StatTextValue[8].text = (IslandScript.landEfficiency / 100f).ToString("0.00");
         StatTextValue[9].text = IslandScript.forestYield.ToString("0");
         StatTextValue[10].text = IslandScript.farmYield.ToString("0");
-        StatTextValue[11].text = (IslandScript.goldPercent * 100f).ToString("0.0") + "%";
+        StatTextValue[11].text = (IslandScript.taxEfficiency / 100f).ToString("0.00");
         StatTextValue[12].text = (IslandScript.lumberPercent * 100f).ToString("0.0") + "%";
         StatTextValue[13].text = (IslandScript.foodPercent * 100f).ToString("0.0") + "%";
     }
